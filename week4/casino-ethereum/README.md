@@ -151,11 +151,14 @@ Now publish ```dist/``` dir to ipfs:
 ```bash
 ipfs add -r dist/
 ```
-example output:
+example output (for windows cmd.exe is cutting the hash so please use Power Shell or Git Bash):
 ```bash
-added QmWiLswt1STr1BhXsxtnAki3cp43gJsU4LbDXeZ2SKcz6c dist/build.js
+added QmQBRQAb8viARryN8kMZaaj2SgrEJyMbMRQZ5XD4WbdUXu dist/build.js
+added Qme3zqhXKouQaMpQ4aXHJ3gNMozfvVGX1wn9HtbEnFKukB dist/build.js.LICENSE.txt
+added QmZXr4vfJK7GzNBMkeuN5RX7j2yz9EKZ1mmv5boojaJ8X8 dist/favicon.ico
 added QmW1zu8pRP1Cb9yiRz5z2HqtYhmzZuGMyoopZKxvyGPuSG dist/index.html
-added QmZJy7nbfx2EXfRfHuWcMyNft7afDNnsEo6JvB7vvYb34q dist
+added QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h dist
+ 382.87 KiB / 382.87 KiB  100.00%
 ```
 
 Publish in IPNS using ```dist/``` hash:
@@ -164,20 +167,21 @@ ipfs name publish QmZJy7nbfx2EXfRfHuWcMyNft7afDNnsEo6JvB7vvYb34q
 ```
 example output:
 ```bash
-Published to QmawAyhL433WQDQDLPChzm989fW9sqnjp718rrPu9qFwq8: /ipfs/QmZJy7nbfx2EXfRfHuWcMyNft7afDNnsEo6JvB7vvYb34q
+Published to k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9: /ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h
 ```
 #### Now DApp is accessible via IPFS
 ###### IPFS addresses (changes every time if file/dir is changed)
 Public gateway:
-```https://gateway.ipfs.io/ipfs/QmZJy7nbfx2EXfRfHuWcMyNft7afDNnsEo6JvB7vvYb34q```
+```https://gateway.ipfs.io/ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h```
 
 Local gateway:
-```https://localhost:8080/ipfs/QmZJy7nbfx2EXfRfHuWcMyNft7afDNnsEo6JvB7vvYb34q```
+```http://localhost:8080/ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h```
+
 ###### IPNS addresses (constant even if file/dir is changed)
 Public gateway:
-```https://gateway.ipfs.io/ipns/QmawAyhL433WQDQDLPChzm989fW9sqnjp718rrPu9qFwq8```
+```https://gateway.ipfs.io/ipns/k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9```
 
 Local gateway:
-```https://gateway.ipfs.io/ipns/QmawAyhL433WQDQDLPChzm989fW9sqnjp718rrPu9qFwq8```
+```http://localhost:8080/ipns/k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9```
 
 
