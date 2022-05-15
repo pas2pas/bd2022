@@ -129,30 +129,38 @@ ipfs add -r dist/
 
 Пример вывода (при использование Windows Cmd вывод хешей будет обрезан => используйте Power Shell or Git Bash):
 ```bash
-added QmQBRQAb8viARryN8kMZaaj2SgrEJyMbMRQZ5XD4WbdUXu dist/build.js
+added QmPdYx7jN5UaMzvwNAmUWiGQ28ZJCsHkwf1mMtRVjcYwmp dist/build.js
 added Qme3zqhXKouQaMpQ4aXHJ3gNMozfvVGX1wn9HtbEnFKukB dist/build.js.LICENSE.txt
 added QmZXr4vfJK7GzNBMkeuN5RX7j2yz9EKZ1mmv5boojaJ8X8 dist/favicon.ico
 added QmW1zu8pRP1Cb9yiRz5z2HqtYhmzZuGMyoopZKxvyGPuSG dist/index.html
-added QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h dist
- 382.87 KiB / 382.87 KiB  100.00%
+added QmbF27fbYRFzTjAW4sECncQ6CZwmDDea25WmGDkqHuCUzA dist
+ 382.92 KiB / 382.92 KiB  100.00%
+
+added QmWZyrPrajQ8yKH5LYann16JCywWYYcLefTHvPteyTvb7L dist/build.js
+added Qme3zqhXKouQaMpQ4aXHJ3gNMozfvVGX1wn9HtbEnFKukB dist/build.js.LICENSE.txt
+added QmZXr4vfJK7GzNBMkeuN5RX7j2yz9EKZ1mmv5boojaJ8X8 dist/favicon.ico
+added QmW1zu8pRP1Cb9yiRz5z2HqtYhmzZuGMyoopZKxvyGPuSG dist/index.html
+added QmYcQHwcTw8kXqDHk7oidMQjDjeJwDoSCgws3AuCQwNjYp dist
+ 382.92 KiB / 382.92 KiB  100.00%
+
 ```
 
 Опубликовать в IPNS используя хеш папки ```dist/```:
 ```bash
-ipfs name publish QmZJy7nbfx2EXfRfHuWcMyNft7afDNnsEo6JvB7vvYb34q
+ipfs name publish QmYcQHwcTw8kXqDHk7oidMQjDjeJwDoSCgws3AuCQwNjYp
 ```
 Пример вывода команды:
 ```bash
-Published to k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9: /ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h
+Published to k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9: /ipfs/QmYcQHwcTw8kXqDHk7oidMQjDjeJwDoSCgws3AuCQwNjYp
 ```
 
 #### Теперь DApp доступен через IPFS
 ###### IPFS адреса (изменяются каждый раз, как меняется папка или файл):
 Публичный шлюз: 
-https://gateway.ipfs.io/ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h
+https://gateway.ipfs.io/ipfs/QmYcQHwcTw8kXqDHk7oidMQjDjeJwDoSCgws3AuCQwNjYp
 
 Локальный шлюз:
-http://localhost:8080/ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h
+http://localhost:8080/ipfs/QmYcQHwcTw8kXqDHk7oidMQjDjeJwDoSCgws3AuCQwNjYp
 
 ###### IPNS адреса (постоянны несмотря на изменения папки или файлов)
 Публичный шлюз:

@@ -17,6 +17,10 @@ contract Casino {
     // The address of the player and => the user info
     mapping(address => Player) public playerInfo;
 
+    event BetAccepted(address from, uint256 bet, uint totalValue);
+    event WinNumber(uint256 winNumber);
+    event WinAddress(address from, uint256 winnerEtherAmount);
+ 
     constructor(uint256 _minimumBet) public {
         owner = msg.sender;
         if(_minimumBet != 0 ) minimumBet = _minimumBet;
@@ -36,6 +40,7 @@ contract Casino {
         numberOfBets++;
         players.push(msg.sender);
         totalBet += msg.value;
+        emit BetAccepted(msg.sender, numberSelected, totalBet);
         if(numberOfBets >= maxAmountOfBets) generateNumberWinner();
     }
 
@@ -49,6 +54,7 @@ contract Casino {
     // Generates a number between 1 and 10 that will be the winner
     function generateNumberWinner() public {
         uint256 numberGenerated = block.number % 10 + 1; // This isn't secure
+        emit WinNumber(numberGenerated);          
         distributePrizes(numberGenerated);
     }
 
@@ -64,11 +70,16 @@ contract Casino {
             }
             delete playerInfo[playerAddress]; // Delete all the players
         }
-        players.length = 0; // Delete all the players array
+        players.length = 0; // Delete all the players array  
         uint256 winnerEtherAmount = totalBet / winners.length; // How much each winner gets
+        uint256 remainder = totalBet - winnerEtherAmount * winners.length;
         for(uint256 j = 0; j < count; j++){
             if(winners[j] != address(0)) // Check that the address in this fixed array is not empty
             winners[j].transfer(winnerEtherAmount);
+            emit WinAddress(winners[j],winnerEtherAmount);
+        }
+        if (remainder != 0) {
+          owner.transfer(remainder);
         }
         resetData();
     }
