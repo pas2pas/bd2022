@@ -7,10 +7,10 @@ https://gateway.ipfs.io/ipns/k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgev
 
 Как собрать проект и задеплоить (Node.js и truffle уже должны быть установлены).
 
-
+Скачать код и перейти в папку casino-ethereum.
 
 ### Тестирование и деплой смарт-контрактов
-Скомпилировать контракты используя truffle
+Скомпилировать контракты используя truffle:
 ```bash
 truffle compile
 ```
@@ -44,17 +44,17 @@ geth --goerli --v5disc --syncmode light
 geth --goerli --v5disc --syncmode light --http --http.port 8547 --verbosity 2 --allow-insecure-unlock console
 ```
 
-Откроется консоль geth. Проверить, есть ли уже аккаунты (консоль geth):
+Откроется консоль geth. Проверить, есть ли уже аккаунты (в консоли geth):
 ```
 eth.accounts
 ```
 
-Проверить баланс аккаунта в ETH (консоль geth):
+Проверить баланс аккаунта в ETH (в консоли geth):
 ```
 web3.fromWei(eth.getBalance(eth.accounts[0]),"ether")
 ```
 
-Если нет аккаунтов, то создать аккаунт (консоль geth):
+Если нет аккаунтов, то создать аккаунт (в консоли geth):
 ```
 personal.newAccount()
 ```
@@ -63,12 +63,12 @@ personal.newAccount()
 https://goerlifaucet.com/
 https://goerli-faucet.mudit.blog/
 
-Разблокировать аккаунт (консоль geth):
+Разблокировать аккаунт (в консоли geth):
 ```
 personal.unlockAccount(eth.accounts[0],"<passphrase>",1e9)
 ```
 
-Проверить баланс аккаунта после получения ETH из фасетов:
+Проверить баланс аккаунта после получения ETH из фасетов (в консоли geth):
 ```
 web3.fromWei(eth.getBalance(eth.accounts[0]),"ether")
 ```
@@ -82,12 +82,12 @@ truffle migrate --reset --network goerli
 (отображается в секции "2_deploy_contract.js")
 
 
-### Update code and build using webpack
+### Обновить код и собрать билд используя webpack
 ABI для Casino.sol доступно в папке build/contracts после компиляции контрактов.
 Обновить ABI и адрес задеплоенного контракта в файле src/js/index.js:
 ```js
-const MyContract = web3.eth.contract(<put contract ABI here>);
-this.state.ContractInstance = MyContract.at("<put contract address here>")
+const MyContract = web3.eth.contract(<contract ABI>);
+this.state.ContractInstance = MyContract.at("<contract address>")
 ```
 
 Собрать dist/build.js:
@@ -148,17 +148,17 @@ Published to k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9: /ip
 
 #### Теперь DApp доступен через IPFS
 ###### IPFS адреса (изменяются каждый раз, как меняется папка или файл):
-Публичный шлюз:
-```https://gateway.ipfs.io/ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h```
+Публичный шлюз: 
+https://gateway.ipfs.io/ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h
 
 Локальный шлюз:
-```http://localhost:8080/ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h```
+http://localhost:8080/ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h
 
 ###### IPNS адреса (постоянны несмотря на изменения папки или файлов)
 Публичный шлюз:
-```https://gateway.ipfs.io/ipns/k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9```
+https://gateway.ipfs.io/ipns/k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9
 
 Локальный шлюз:
-```http://localhost:8080/ipns/k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9```
+http://localhost:8080/ipns/k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9
 
 
