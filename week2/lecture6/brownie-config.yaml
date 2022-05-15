@@ -1,0 +1,22 @@
+# exclude SafeMath when calculating test coverage
+# https://eth-brownie.readthedocs.io/en/v1.10.3/config.html#exclude_paths
+reports:
+  exclude_contracts:
+    - SafeMath
+
+dependencies:
+  - OpenZeppelin/openzeppelin-contracts@3.0.0
+
+compiler:
+  solc:
+    version: 0.6.12
+    remappings:
+      - "@OpenZeppelin=OpenZeppelin/openzeppelin-contracts@3.0.0"
+
+
+networks:
+ default: mainnet-fork
+ mainnet-fork: 
+  cmd_settings:
+   unlock:
+    - 0xab5801a7d398351b8be11c439e05c5b3259aec9b
