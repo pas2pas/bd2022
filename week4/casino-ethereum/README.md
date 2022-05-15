@@ -1,157 +1,133 @@
 # DApp "Casino Ethereum"
-Based on https://medium.com/@merunasgrincalaitis/the-ultimate-end-to-end-tutorial-to-create-and-deploy-a-fully-descentralized-dapp-in-ethereum-18f0cf6d7e0e
+Основано на https://medium.com/@merunasgrincalaitis/the-ultimate-end-to-end-tutorial-to-create-and-deploy-a-fully-descentralized-dapp-in-ethereum-18f0cf6d7e0e
 
-To get access just go to
-https://gateway.ipfs.io/ipns/QmawAyhL433WQDQDLPChzm989fW9sqnjp718rrPu9qFwq8
-when and if my IPFS daemon is running )
+Чтобы попробовать, используйте ссылку (нужен Метамаск, соединение с тестнетом Görli и немного тестовых ETH):
+https://gateway.ipfs.io/ipns/k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9
+(когда и если моя IPFS нода запущена)
 
-How to build and deploy from scratch.
-Nodejs and truffle should already be installed.
+Как собрать проект и задеплоить (Node.js и truffle уже должны быть установлены).
 
-## Install dependencies
-```bash
-mkdir ethereum-casino
-cd ethereum-casino
-truffle init
-npm init
-npm i --save react react-dom babel-core babel-loader babel-preset-react babel-preset-env css-loader style-loader json-loader web3@0.20.0 babel-polyfill babel-register babel-preset-stage-2 babel-preset-es2015
-npm i -g http-server webpack webpack-cli json-loader 
-```
 
-## Update source code
-Make dirs in project root:
-```bash
-mkdir src
-mkdir src/js
-mkdir src/css
-mkdir dist
-```
-Replace file in project root with one from https://github.com/zidorov/bf-week-5/tree/master/casino-ethereum-demo
-```
-truffle-config.js
-```
 
-Add files to project from ../casino-ethereum-demo:
-```
-webpack.config.js
-migrations/2_deploy_casino.js
-contracts/Casino.sol
-dist/index.html
-src/css/index.css
-src/js/index.js
-```
-
-### Test and deploy contracts
-Compile contracts using truffle:
+### Тестирование и деплой смарт-контрактов
+Скомпилировать контракты используя truffle
 ```bash
 truffle compile
 ```
 
-Deploy contracts in ganache (run in separate window):
+Задеплоить контракты в локальном тестнете ganache (запустить ganache-cli в отдельном терминале/окне):
 ```bash
-ganache-cli -l 8000000
+ganache-cli -l 10000000
 ```
 
+Деплой:
 ```bash
 truffle migrate
 ```
 
-Test contracts:
+Запуск тестов:
 ```bash
 truffle test
 ```
 
-### Deploy contracts in Goerli ###
-Download and install geth (if not yet installed).
-Скачать и установить geth (если еще не установлен).
+### Задеплоить контракты в сети Görli ###
+Скачать и установить Geth (если еще не установлен).
 https://geth.ethereum.org/downloads/
 
-Sync goerli testnet (wait until sync will be completed ~15 min)
+Синхронизироваться с тестнетом Görli в лайт-режиме (подождать пока синхронизация не будет завершена ~15 мин)
 ```bash
 geth --goerli --v5disc --syncmode light
 ```
 
-Finish geth and restart with parameters:
+Завершить выполнение geth и перезапустить с параметрами:
 ```bash
 geth --goerli --v5disc --syncmode light --http --http.port 8547 --verbosity 2 --allow-insecure-unlock console
 ```
 
-Check is accounts already exists (in geth console):
+Откроется консоль geth. Проверить, есть ли уже аккаунты (консоль geth):
 ```
 eth.accounts
 ```
-Check the account balance in ETH (in geth console):
+
+Проверить баланс аккаунта в ETH (консоль geth):
 ```
 web3.fromWei(eth.getBalance(eth.accounts[0]),"ether")
 ```
 
-Create account in geth console:
+Если нет аккаунтов, то создать аккаунт (консоль geth):
 ```
 personal.newAccount()
 ```
-For the first time a passphrase for local wallet in geth will be asked.
-Copy generated account number and get ETH from goerli faucet
+При создании первого аккаунта будет запрошена фраза-пароль (passphrase). Ввести и запомнить.
+Скопировать созданные номер аккаунта и получить ETH из фасетов Görli
 https://goerlifaucet.com/
 https://goerli-faucet.mudit.blog/
 
-Unlock account in geth console:
+Разблокировать аккаунт (консоль geth):
 ```
-personal.unlockAccount(eth.accounts[0],"<password>",1e9)
+personal.unlockAccount(eth.accounts[0],"<passphrase>",1e9)
 ```
-Check balance of account:
-web3.fromWei(eth.getBalance(eth.accounts[0]),"ether")
 
-Deploy contracts to Goerli (account with enough ETH should be unlocked!):
+Проверить баланс аккаунта после получения ETH из фасетов:
+```
+web3.fromWei(eth.getBalance(eth.accounts[0]),"ether")
+```
+
+Не закрывая geth, запущенный в отдельном терминале/окне, задеплоить контракты в Görli (аккаунт с достаточным количеством ETH должен быть в разблокированном состоянии):
 ```bash
 truffle migrate --reset --network goerli
 ```
-Write down Casino contract number, e.g. 0x68afD32894AECb1A7c73616bcEDA91F78962838b
-(from "2_deploy_contract.js" section)
 
-Get Casino.sol contract ABI Casino.json (available in build/contracts after 'truffle compile').
+Записать номер контракта Казино, например 0x68afD32894AECb1A7c73616bcEDA91F78962838b
+(отображается в секции "2_deploy_contract.js")
+
 
 ### Update code and build using webpack
-Update ABI and contract address in file src/js/index.js
+ABI для Casino.sol доступно в папке build/contracts после компиляции контрактов.
+Обновить ABI и адрес задеплоенного контракта в файле src/js/index.js:
 ```js
 const MyContract = web3.eth.contract(<put contract ABI here>);
 this.state.ContractInstance = MyContract.at("<put contract address here>")
 ```
 
-Build dist/build.js:
+Собрать dist/build.js:
 ```bash
 webpack
 ```
 
-### Test locally
+### Тестируем локально
+Запустить простейший веб-сервер с корнем в папке dist:
 ```
 http-server dist/
 ```
-Go to http://localhost:8080 to test.
+Перейти, не закрывая сервер, по адресу http://localhost:8080 для тестирования
 
-### Deploy to IPFS
-Download and install (unpack) IPFS with command line
+### Деплой в IPFS
+Скачать и установить (распаковать и переместить в подходящую папку) IPFS with command line
 https://docs.ipfs.io/install/command-line/
-Add path to ipfs.exe to PATH environment variable.
+Добавит путь к ipfs.exe в переменную окружения PATH.
 
-Check IPFS is accessible:
+Проверить, что ipfs доступен:
 ```bash
 ipfs --version
 ```
 
-Init IPFS node:
+Инициализировать хранилище IPFS (делается один раз, создается папка .ipfs в корне папки пользователя - не в папке проекта):
 ```bash
 ipfs init
 ```
-Run IPFS daemon (it should run in a separate terminal/cmd window):
+
+Запустить IPFS демон (должен быть запущен в отдельном терминале/окне):
 ```bash
 ipfs daemon
 ```
 
-Now publish ```dist/``` dir to ipfs:
+Опубликовать папку ```dist/``` в IPFS:
 ```bash
 ipfs add -r dist/
 ```
-example output (for windows cmd.exe is cutting the hash so please use Power Shell or Git Bash):
+
+Пример вывода (при использование Windows Cmd вывод хешей будет обрезан => используйте Power Shell or Git Bash):
 ```bash
 added QmQBRQAb8viARryN8kMZaaj2SgrEJyMbMRQZ5XD4WbdUXu dist/build.js
 added Qme3zqhXKouQaMpQ4aXHJ3gNMozfvVGX1wn9HtbEnFKukB dist/build.js.LICENSE.txt
@@ -161,27 +137,28 @@ added QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h dist
  382.87 KiB / 382.87 KiB  100.00%
 ```
 
-Publish in IPNS using ```dist/``` hash:
+Опубликовать в IPNS используя хеш папки ```dist/```:
 ```bash
 ipfs name publish QmZJy7nbfx2EXfRfHuWcMyNft7afDNnsEo6JvB7vvYb34q
 ```
-example output:
+Пример вывода команды:
 ```bash
 Published to k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9: /ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h
 ```
-#### Now DApp is accessible via IPFS
-###### IPFS addresses (changes every time if file/dir is changed)
-Public gateway:
+
+#### Теперь DApp доступен через IPFS
+###### IPFS адреса (изменяются каждый раз, как меняется папка или файл):
+Публичный шлюз:
 ```https://gateway.ipfs.io/ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h```
 
-Local gateway:
+Локальный шлюз:
 ```http://localhost:8080/ipfs/QmPhUjUMToZBBcuHksSCZAevTsFZU4KHEK6dZCQRzzVF2h```
 
-###### IPNS addresses (constant even if file/dir is changed)
-Public gateway:
+###### IPNS адреса (постоянны несмотря на изменения папки или файлов)
+Публичный шлюз:
 ```https://gateway.ipfs.io/ipns/k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9```
 
-Local gateway:
+Локальный шлюз:
 ```http://localhost:8080/ipns/k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9```
 
 
