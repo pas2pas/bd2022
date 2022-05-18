@@ -5,7 +5,14 @@
 https://gateway.ipfs.io/ipns/k51qzi5uqu5dlqk3qfjam1fgubh5l0ujtx2pb1a4y7e0oodqgevmkmb8bxf5b9
 (когда и если моя IPFS нода запущена)
 
-Как собрать проект и задеплоить (Node.js и truffle уже должны быть установлены).
+##Как собрать проект и задеплоить.
+
+Установить Node.js
+https://nodejs.org/
+
+Установить Ganache и Truffle:
+npm install -g ganache-cli
+npm install -g truffle
 
 Скачать код и перейти в папку casino-ethereum.
 
